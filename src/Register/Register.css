@@ -1,0 +1,48 @@
+.register {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    margin-left: 40%;
+    padding: 45px;
+    width: 20% !important;
+    z-index: 999;
+}
+
+.register__header {
+    text-align: left;
+}
+
+.register__header > h4 {
+    margin-top: 10px;
+}
+
+.register__header > h6 {
+    margin-bottom: 10px;
+}
+
+.register__form > form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register__form > form > select {
+    height: 45px;
+    font-size: 14px;
+}
+
+.register__form > form > .form-control{
+    margin: 10px 0;
+}
+
+.register__form > form > label {
+    text-align: left;
+    margin: 10px 0;
+}
+
+.register__form > form > button {
+    margin: 10px 0;
+}
+
+.register__login {
+    color: #248AFD;
+}

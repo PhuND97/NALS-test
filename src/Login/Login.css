@@ -1,0 +1,64 @@
+.login {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    margin-left: 40%;
+    padding: 45px;
+    width: 20% !important;
+    z-index: 999;
+}
+
+.login__header {
+    text-align: left;
+}
+
+.login__header > h4 {
+    margin-top: 10px;
+}
+
+.login__header > h6 {
+    margin-bottom: 10px;
+}
+
+.login__form > form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login__form > form > .form-control{
+    margin: 10px 0;
+}
+
+.login__form > form > button {
+    margin: 10px 0;
+}
+
+.login__keep__forgot {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.login__keep__forgot > a {
+    text-decoration: none;
+}
+
+.login__usingfb {
+    border-radius: 3px;
+    background-color: #3B579D;
+    border-color: #3B579D;
+    cursor: pointer;
+    color: white;
+    line-height: 1.5;
+    height: 50px;
+    margin: 10px 0;
+}
+
+.login__usingfb:hover {
+    background-color: #314E89;
+    border-color: #314E89;
+}
+
+.login__create {
+    color: #248AFD;
+}
