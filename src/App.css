@@ -1,6 +1,6 @@
 .App {
     text-align: center;
-    padding-top: 100px;
+    padding-top: 50px;
 }
 
 h4 {
@@ -34,8 +34,7 @@ h6 {
     background-color: #248AFD;
     border-color: #248AFD;
     color: white;
-    line-height: 1.5;
-    height: 50px;
+    height: 40px;
     cursor: pointer;
 }
 

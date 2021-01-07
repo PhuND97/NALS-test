@@ -1,13 +1,44 @@
 import React, { useState } from 'react';
 import './Register.css';
 import RoyalUILogo from '../asset/logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { auth } from '../firebase';
+import { login } from '../features/userSlice';
 
 function Register() {
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [country, setCountry] = useState('');
   const [email, setEmail] = useState('');
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const register = () => {
+    // if (!name) {
+    //     return alert("Please enter a full name!");
+    // }
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((userAuth) => {
+        userAuth.user.updateProfile({
+          username: username,
+          country: country,
+        })
+          .then(() => {
+            dispatch(
+              login({
+                email: userAuth.user.email,
+                uid: userAuth.user.uid,
+                username: username,
+                country: country,
+              }));
+          });
+      })
+      .then(() => {
+        history.push('/table');
+      }).catch(error => alert(error));
+  };
 
   return (
     <div className="register">
@@ -53,20 +84,19 @@ function Register() {
             value={password}
             onChange={e => setPassword(e.target.value)}
             placeholder="Password" 
-            type="text"
+            type="password"
           />
           
           <label>
             <input type="checkbox"/>
-            I agree to all Terms & Conditions
+                &nbsp;I agree to all Terms & Conditions
           </label>  
 
-          <button className="btn-lg" type="submit">
+          <span className="btn-lg" onClick={register}>
                   SIGN UP
-          </button>
+          </span>
         </form>
       </div>
-
       <p>Already have an account?
         <Link style={{textDecoration: 'none'}} to="/">
           <span className="register__login"> Login</span>

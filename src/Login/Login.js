@@ -1,22 +1,34 @@
 import React, { useState } from 'react';
 import './Login.css';
 import RoyalUILogo from '../asset/logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { auth } from '../firebase';
+import { login } from '../features/userSlice';
+import { useDispatch } from 'react-redux';
 
 function Login() {
   const [username, setUserName] =useState('');
   const [password, setPassword] =useState('');
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  const login = async (e) => {
+  const loginToApp = async (e) => {
     e.preventDefault();
 
-    await fetch('', {
-      method: 'POST',
-      body: {
-        username: username,
-        password: password
-      }
-    });
+    auth.signInWithEmailAndPassword(username, password)
+      .then(userAuth => {
+        dispatch(login({
+          email: userAuth.user.email,
+          uid: userAuth.user.uid,
+          username: userAuth.user.username,
+          country: userAuth.user.country,
+        }));
+      })
+      .then(() => {
+        history.push('/table');
+      }).catch(error => alert(error));
+
+    console.log('success');
   };
 
   return (
@@ -42,19 +54,19 @@ function Login() {
             value={password}
             onChange={e => setPassword(e.target.value)}
             placeholder="Password" 
-            type="text"
+            type="password"
           />
 
-          <button className="btn-lg" type="submit" onClick={login}>
+          <span className="btn-lg" onClick={loginToApp}>
                 SIGN IN
-          </button>
+          </span>
         </form>
       </div>
 
       <div className="login__keep__forgot">
         <label>
           <input type="checkbox"/>
-              Keep me sign in
+            &nbsp;Keep me sign in
         </label>
         <a href="">Forgot password?</a>
       </div>

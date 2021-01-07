@@ -1,0 +1,31 @@
+.stripedtable {
+    width: 80%;
+    background-color: white;
+    margin-left: 18%;
+    padding: 20px;
+}
+
+.stripedtable > p {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.MuiTableCell-head {
+    font-weight: bold !important;
+}
+
+.red > div {
+    background-color: red !important;
+}
+
+.green > div {
+    background-color: green !important;
+}
+
+.blue > div {
+    background-color: blue !important;
+}
+
+.orange > div {
+    background-color: orange !important;
+}

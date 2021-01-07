@@ -2,9 +2,9 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    margin-left: 40%;
+    margin-left: 35%;
     padding: 45px;
-    width: 20% !important;
+    width: 30% !important;
     z-index: 999;
 }
 
@@ -29,8 +29,9 @@
     margin: 10px 0;
 }
 
-.login__form > form > button {
+.login__form > form > span {
     margin: 10px 0;
+    font-size: 16px;
 }
 
 .login__keep__forgot {
@@ -50,7 +51,7 @@
     cursor: pointer;
     color: white;
     line-height: 1.5;
-    height: 50px;
+    height: 40px;
     margin: 10px 0;
 }
 

@@ -2,9 +2,9 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    margin-left: 40%;
+    margin-left: 35%;
     padding: 45px;
-    width: 20% !important;
+    width: 30% !important;
     z-index: 999;
 }
 
@@ -39,8 +39,9 @@
     margin: 10px 0;
 }
 
-.register__form > form > button {
+.register__form > form > span {
     margin: 10px 0;
+    font-size: 16px;
 }
 
 .register__login {
