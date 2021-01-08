@@ -96,9 +96,9 @@ function Register() {
                 &nbsp;I agree to all Terms & Conditions
           </label>  
 
-          <span className="btn-lg" onClick={register}>
+          <button className="btn-lg" onClick={register}>
                   SIGN UP
-          </span>
+          </button>
         </form>
       </div>
       <p>Already have an account?

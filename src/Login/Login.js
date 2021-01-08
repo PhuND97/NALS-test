@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css';
 import RoyalUILogo from '../asset/logo.svg';
 import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../firebase';
-import { login } from '../features/userSlice';
-import { useDispatch } from 'react-redux';
+import { login, selectUser } from '../features/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Login() {
   const [username, setUserName] =useState('');
   const [password, setPassword] =useState('');
   const dispatch = useDispatch();
   const history = useHistory();
+  const userAuth = useSelector(selectUser);
 
   const loginToApp = async (e) => {
     e.preventDefault();
@@ -28,6 +29,12 @@ function Login() {
         history.push('/');
       }).catch(error => alert(error));
   };
+
+  useEffect(() => {
+    if (userAuth) {
+      history.push('/');
+    }
+  });
 
   return (
     <div className="login">
@@ -55,9 +62,9 @@ function Login() {
             type="password"
           />
 
-          <span className="btn-lg" onClick={loginToApp}>
+          <button className="btn-lg" onClick={loginToApp}>
                 SIGN IN
-          </span>
+          </button>
         </form>
       </div>
 

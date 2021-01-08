@@ -38,6 +38,7 @@ h6 {
     background-color: #248AFD;
     border-color: #248AFD;
     color: white;
+    line-height: 10px;
     height: 40px;
     cursor: pointer;
 }
