@@ -25,10 +25,8 @@ function Login() {
         }));
       })
       .then(() => {
-        history.push('/table');
+        history.push('/');
       }).catch(error => alert(error));
-
-    console.log('success');
   };
 
   return (

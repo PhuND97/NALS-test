@@ -10,12 +10,17 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { db } from '../firebase';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice';
+import { useHistory } from 'react-router-dom';
 
 function StripedTable() {
+  const userAuth = useSelector(selectUser);
   const [users, setUsers] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
-    db.collection('users').onSnapshot((snapshot) =>
+    db.collection('users').orderBy('stt', 'asc').onSnapshot((snapshot) =>
       setUsers(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -23,6 +28,11 @@ function StripedTable() {
         }))
       )
     );
+
+    if (!userAuth) {
+      history.push('/');
+    }
+
   }, []);
   
   return (
@@ -49,7 +59,7 @@ function StripedTable() {
                 <TableCell align="left">
                   <ProgressBar className={progressColor} now={progress} />
                 </TableCell>
-                <TableCell align="left">$ {amount}</TableCell>
+                <TableCell align="left">$ {Number(amount).toFixed(2)}</TableCell>
                 <TableCell align="left">{deadline}</TableCell>
               </TableRow>
             ))}

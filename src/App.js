@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from './firebase';
 import { login, logout, selectUser } from './features/userSlice';
+import Header from './Header/Header';
 
 function App() {
   const user = useSelector(selectUser);
@@ -37,14 +38,17 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/table">
-            <StripedTable />
+          <Route path="/login">
+            <Login />
           </Route>
           <Route path="/">
             {!user ? (
               <Login />
             ) : (
-              <StripedTable />
+              <div className="app__main">
+                <Header />
+                <StripedTable />
+              </div>
             )}
           </Route>
         </Switch>

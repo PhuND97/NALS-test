@@ -11,13 +11,14 @@ function Register() {
   const [password, setPassword] = useState('');
   const [country, setCountry] = useState('');
   const [email, setEmail] = useState('');
+  const [agreeTerm, setAgreeTerm] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const register = () => {
-    // if (!name) {
-    //     return alert("Please enter a full name!");
-    // }
+    if (!agreeTerm) {
+      return alert('Please tick Agree all Terms and Conditions!');
+    }
 
     auth.createUserWithEmailAndPassword(email, password)
       .then((userAuth) => {
@@ -36,7 +37,7 @@ function Register() {
           });
       })
       .then(() => {
-        history.push('/table');
+        history.push('/');
       }).catch(error => alert(error));
   };
 
@@ -88,7 +89,10 @@ function Register() {
           />
           
           <label>
-            <input type="checkbox"/>
+            <input 
+              type="checkbox"
+              onChange={e => setAgreeTerm(e.target.checked)}
+            />
                 &nbsp;I agree to all Terms & Conditions
           </label>  
 
