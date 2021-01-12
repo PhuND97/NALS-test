@@ -37,7 +37,7 @@ function StripedTable() {
   
   return (
     <div className="stripedtable">
-      <p>STRIPED TABLE</p>
+      <h4>STRIPED TABLE</h4>
       <TableContainer component={Paper}>
         <Table style={{ minWidth: 60 }} aria-label="simple table">
           <TableHead>

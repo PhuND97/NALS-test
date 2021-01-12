@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 35%;
-    padding: 45px;
+    padding: 48px;
     width: 30% !important;
     z-index: 999;
 }
@@ -51,7 +51,7 @@
     cursor: pointer;
     color: white;
     line-height: 1.5;
-    height: 40px;
+    height: 54px;
     margin: 10px 0;
 }
 
@@ -62,4 +62,8 @@
 
 .login__create {
     color: #248AFD;
+}
+
+.login > p {
+    margin-top: 10px;
 }

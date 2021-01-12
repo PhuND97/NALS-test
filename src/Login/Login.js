@@ -13,7 +13,7 @@ function Login() {
   const history = useHistory();
   const userAuth = useSelector(selectUser);
 
-  const loginToApp = async (e) => {
+  const loginToApp = (e) => {
     e.preventDefault();
 
     auth.signInWithEmailAndPassword(username, password)
@@ -21,8 +21,6 @@ function Login() {
         dispatch(login({
           email: userAuth.user.email,
           uid: userAuth.user.uid,
-          username: userAuth.user.username,
-          country: userAuth.user.country,
         }));
       })
       .then(() => {

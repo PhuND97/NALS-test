@@ -5,27 +5,50 @@
     padding: 20px;
 }
 
-.stripedtable > p {
+.stripedtable > h4 {
     text-align: left;
     margin-bottom: 20px;
+    color: #787878;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.progress {
+    height: 8px !important;
 }
 
 .MuiTableCell-head {
     font-weight: bold !important;
 }
 
+.MuiTableRow-root {
+    height: 44px;
+}
+
+.MuiTableCell-root {
+    padding: 8px !important;
+}
+
+.MuiPaper-elevation1 {
+    box-shadow: none !important;
+}
+
 .red > div {
-    background-color: red !important;
+    background-color: #FF4747 !important;
 }
 
 .green > div {
-    background-color: green !important;
+    background-color: #71C016 !important;
 }
 
 .blue > div {
-    background-color: blue !important;
+    background-color: #248AFD !important;
+}
+
+.smokeblue > div {
+    background-color: #68AFFF !important;
 }
 
 .orange > div {
-    background-color: orange !important;
+    background-color: #F5A623 !important;
 }

@@ -15,26 +15,20 @@ function Register() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const register = () => {
+  const register = (e) => {
+    e.preventDefault();
+
     if (!agreeTerm) {
       return alert('Please tick Agree all Terms and Conditions!');
     }
 
     auth.createUserWithEmailAndPassword(email, password)
       .then((userAuth) => {
-        userAuth.user.updateProfile({
-          username: username,
-          country: country,
-        })
-          .then(() => {
-            dispatch(
-              login({
-                email: userAuth.user.email,
-                uid: userAuth.user.uid,
-                username: username,
-                country: country,
-              }));
-          });
+        dispatch(
+          login({
+            email: userAuth.user.email,
+            uid: userAuth.user.uid,
+          }));
       })
       .then(() => {
         history.push('/');
