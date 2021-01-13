@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../firebase';
 import { login, selectUser } from '../features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Checkbox from '@material-ui/core/Checkbox';
 
 function Login() {
   const [username, setUserName] =useState('');
@@ -68,7 +69,7 @@ function Login() {
 
       <div className="login__keep__forgot">
         <label>
-          <input type="checkbox"/>
+          <Checkbox />
             &nbsp;Keep me sign in
         </label>
         <a href="">Forgot password?</a>

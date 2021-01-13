@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 import RoyalUILogo from '../asset/logo.svg';
 import SearchIcon from '@material-ui/icons/Search';
@@ -6,9 +6,15 @@ import { Avatar } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { logout } from '../features/userSlice';
 import { auth } from '../firebase';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 function Header() {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+
+  const handleToggle = () => {
+    setOpen((open) => !open);
+  };
 
   const logoutOfApp = () => {
     dispatch(logout());
@@ -26,7 +32,14 @@ function Header() {
         </div>
       </div>
       <div className="header__right">
-        <Avatar onClick={logoutOfApp}/>
+        <Avatar onClick={handleToggle}/>
+        <Dropdown drop='down' show={open}>
+          <Dropdown.Toggle variant="success" id="dropdown-basic" style={{ backgroundColor: 'transparent', borderColor: 'transparent' }} />
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={handleToggle}>Settings</Dropdown.Item>
+            <Dropdown.Item onClick={logoutOfApp}>Logout</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { auth } from '../firebase';
 import { login } from '../features/userSlice';
+import Checkbox from '@material-ui/core/Checkbox';
 
 function Register() {
   const [username, setUserName] = useState('');
@@ -83,8 +84,7 @@ function Register() {
           />
           
           <label>
-            <input 
-              type="checkbox"
+            <Checkbox               
               onChange={e => setAgreeTerm(e.target.checked)}
             />
                 &nbsp;I agree to all Terms & Conditions
