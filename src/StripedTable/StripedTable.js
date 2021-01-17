@@ -48,6 +48,7 @@ function StripedTable() {
   };
 
   const addUser = () => {
+    setIdSelected('');
     setTypeOfModal('new');
   };
 
@@ -128,7 +129,7 @@ function StripedTable() {
         <MenuItem onClick={editUser}>Edit</MenuItem>
         <MenuItem onClick={deleteUser}>Delete</MenuItem>
       </Menu>
-      <UserModal typeOfModal={typeOfModal} onCloseDialog={onCloseDialog} />
+      <UserModal typeOfModal={typeOfModal} onCloseDialog={onCloseDialog} idSelected={idSelected}/>
     </div>
   );
 }
