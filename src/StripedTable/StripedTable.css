@@ -5,12 +5,21 @@
     padding: 20px;
 }
 
-.stripedtable > h4 {
+.stripedtable__header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stripedtable__header > h4 {
     text-align: left;
     margin-bottom: 20px;
     color: #787878;
     font-size: 14px;
     font-weight: 400;
+}
+
+.stripedtable__header > .MuiSvgIcon-root {
+    cursor: pointer;
 }
 
 .progress {
@@ -31,24 +40,4 @@
 
 .MuiPaper-elevation1 {
     box-shadow: none !important;
-}
-
-.red > div {
-    background-color: #FF4747 !important;
-}
-
-.green > div {
-    background-color: #71C016 !important;
-}
-
-.blue > div {
-    background-color: #248AFD !important;
-}
-
-.smokeblue > div {
-    background-color: #68AFFF !important;
-}
-
-.orange > div {
-    background-color: #F5A623 !important;
 }

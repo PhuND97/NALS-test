@@ -42,8 +42,3 @@
 .header__right {
     cursor: pointer;
 }
-
-.header__right > .MuiAvatar-root {
-    position: absolute;
-    z-index: 999;
-}

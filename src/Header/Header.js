@@ -3,22 +3,35 @@ import './Header.css';
 import RoyalUILogo from '../asset/logo.svg';
 import SearchIcon from '@material-ui/icons/Search';
 import { Avatar } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch } from 'react-redux';
 import { logout } from '../features/userSlice';
 import { auth } from '../firebase';
-import Dropdown from 'react-bootstrap/Dropdown';
 
 function Header() {
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
-
-  const handleToggle = () => {
-    setOpen((open) => !open);
+  const positionMenu = {
+    mouseX: null,
+    mouseY: null,
   };
+  const [state, setState] = useState(positionMenu);
 
   const logoutOfApp = () => {
     dispatch(logout());
     auth.signOut();
+  };
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    setState({
+      mouseX: event.currentTarget.getBoundingClientRect().left,
+      mouseY: event.currentTarget.getBoundingClientRect().bottom,
+    });
+  };
+
+  const handleClose = () => {
+    setState(positionMenu);
   };
 
   return (
@@ -32,14 +45,21 @@ function Header() {
         </div>
       </div>
       <div className="header__right">
-        <Avatar onClick={handleToggle}/>
-        <Dropdown drop='down' show={open}>
-          <Dropdown.Toggle variant="success" id="dropdown-basic" style={{ backgroundColor: 'transparent', borderColor: 'transparent' }} />
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={handleToggle}>Settings</Dropdown.Item>
-            <Dropdown.Item onClick={logoutOfApp}>Logout</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+        <Avatar onClick={handleClick}/>
+        <Menu
+          open={state.mouseY !== null}
+          onClose={handleClose}
+          anchorReference="anchorPosition"
+          anchorPosition={ 
+            state.mouseY !== null && state.mouseX !== null
+              ? { top: state.mouseY, left: state.mouseX }
+              : undefined
+          }
+        >
+          <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={logoutOfApp}>Logout</MenuItem>
+        </Menu>
       </div>
     </div>
   );

@@ -1,0 +1,29 @@
+.modal__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal__buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.MuiDialog-paper {
+    width: 350px;
+}
+
+.sc-pFZIQ {
+    height: 48px !important;
+    padding-top: 16px !important;
+}
+
+.sc-pFZIQ > div > div > .MuiInput-input {
+    width: 265px !important;
+}
+
+.MuiDialogTitle-root {
+    text-align: center;
+    padding-bottom: 0px !important;
+}
