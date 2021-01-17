@@ -56,8 +56,7 @@ function Header() {
               : undefined
           }
         >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={handleClose}>Setting</MenuItem>
           <MenuItem onClick={logoutOfApp}>Logout</MenuItem>
         </Menu>
       </div>

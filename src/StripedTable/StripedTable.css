@@ -1,7 +1,7 @@
 .stripedtable {
-    width: 80%;
+    width: 78%;
     background-color: white;
-    margin-left: 18%;
+    margin-left: 20%;
     padding: 20px;
 }
 
@@ -24,10 +24,12 @@
 
 .progress {
     height: 8px !important;
+    width: 95%;
 }
 
 .MuiTableCell-head {
     font-weight: bold !important;
+    cursor: pointer;
 }
 
 .MuiTableRow-root {

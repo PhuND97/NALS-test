@@ -17,9 +17,6 @@ function UserModal({ typeOfModal, onCloseDialog, idSelected }) {
   const [deadline, setDeadline] = useState('');
   const [totalUser, setTotalUser] = useState([]);
 
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
   useEffect(() => {
     db.collection('users').orderBy('stt', 'asc').onSnapshot((snapshot) => {
       setTotalUser(snapshot.docs.length);
@@ -27,12 +24,12 @@ function UserModal({ typeOfModal, onCloseDialog, idSelected }) {
     if (idSelected) {
       db.collection('users').doc(idSelected).get()
         .then(doc => {
-          setUserImageUrl(doc.data().userImageUrl);
-          setFirstName(doc.data().firstName);
-          setProgress(doc.data().progress);
-          setProgressColor(doc.data().progressColor);
-          setAmount(doc.data().amount);
-          setDeadline(convertLongToISODate(doc.data().deadline));
+          setUserImageUrl(doc?.data().userImageUrl);
+          setFirstName(doc?.data().firstName);
+          setProgress(doc?.data().progress);
+          setProgressColor(doc?.data().progressColor);
+          setAmount(doc?.data().amount);
+          setDeadline(doc?.data().deadline);
         });
     } else {
       setUserImageUrl();
@@ -50,8 +47,8 @@ function UserModal({ typeOfModal, onCloseDialog, idSelected }) {
       firstName: firstName,
       progress: progress,
       progressColor: progressColor,
-      amount: amount,
-      deadline: convertISOToLongDate(deadline),
+      amount: parseFloat(amount),
+      deadline: deadline,
       stt: totalUser + 1,
     })
       .then(() => onCloseDialog())
@@ -64,25 +61,11 @@ function UserModal({ typeOfModal, onCloseDialog, idSelected }) {
       firstName: firstName,
       progress: progress,
       progressColor: progressColor,
-      amount: amount,
-      deadline: convertISOToLongDate(deadline),
+      amount: parseFloat(amount),
+      deadline: deadline,
     })
       .then(() => onCloseDialog())
       .catch(e => console.error(e));
-  };
-
-  const convertISOToLongDate = (date) => {
-    let month = monthNames[parseInt(date.slice(5,7)) - 1];
-    let day = date.slice(8, 10);
-    let year = date.slice(0, 4);
-    return `${month} ${day}, ${year}`;
-  };
-
-  const convertLongToISODate = (date) => {
-    let month = monthNames.indexOf(date.slice(0, 3)) + 1;
-    let day = date.slice(4, 6);
-    let year = date.slice(8, 12);
-    return month < 10 ? `${year}-0${month}-${day}` : `${year}-${month}-${day}`;
   };
 
   return (

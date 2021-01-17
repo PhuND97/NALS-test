@@ -11,12 +11,13 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { db } from '../firebase';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
 import { useHistory } from 'react-router-dom';
 import UserModal from './UserModal';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function StripedTable() {
   const userAuth = useSelector(selectUser);
@@ -25,22 +26,30 @@ function StripedTable() {
     mouseX: null,
     mouseY: null,
   };
+  const propSort = {
+    path: 'stt',
+    dir: 'asc',
+  };
   const [users, setUsers] = useState([]);
-  const [state, setState] = useState(positionMenu);
+  const [posMenu, setPosMenu] = useState(positionMenu);
+  const [inforSort, setInforSort] = useState(propSort);
   const [idSelected, setIdSelected] = useState('');
   const [typeOfModal, setTypeOfModal] = useState('');
+
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     
   const rightClickRow = (event, id) => {
     event.preventDefault();
     setIdSelected(id);
-    setState({
+    setPosMenu({
       mouseX: event.clientX - 2,
       mouseY: event.clientY - 4,
     });
   };
 
   const handleCloseMenu = () => {
-    setState(positionMenu);
+    setPosMenu(positionMenu);
   };
 
   const onCloseDialog = () => {
@@ -65,8 +74,22 @@ function StripedTable() {
     handleCloseMenu();
   };
 
+  const toggleSort = (e) => {
+    setInforSort({
+      path: e.target.title,
+      dir: inforSort.dir === 'asc' ? 'desc' : 'asc',
+    });
+  };
+
+  const convertISOToLongDate = (date) => {
+    let month = monthNames[parseInt(date.slice(5,7)) - 1];
+    let day = date.slice(8, 10);
+    let year = date.slice(0, 4);
+    return `${month} ${day}, ${year}`;
+  };
+
   useEffect(() => {
-    db.collection('users').orderBy('stt', 'asc').onSnapshot((snapshot) =>
+    db.collection('users').orderBy(inforSort.path, inforSort.dir).onSnapshot((snapshot) =>
       setUsers(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -78,7 +101,7 @@ function StripedTable() {
     if (!userAuth) {
       history.push('/');
     }
-  }, []);
+  }, [inforSort.path, inforSort.dir]);
   
   return (
     <div className="stripedtable">
@@ -88,13 +111,35 @@ function StripedTable() {
       </div>
       <TableContainer component={Paper}>
         <Table style={{ minWidth: 60 }} aria-label="simple table">
+          <colgroup>
+            <col style={{width:'13.7%'}}/>
+            <col style={{width:'24.9%'}}/>
+            <col style={{width:'19%'}}/>
+            <col style={{width:'17.6%'}}/>
+            <col style={{width:'24.8%'}}/>
+          </colgroup>
           <TableHead>
             <TableRow>
-              <TableCell>User</TableCell>
-              <TableCell align="left">First name</TableCell>
-              <TableCell align="left">Progress</TableCell>
-              <TableCell align="left">Amount</TableCell>
-              <TableCell align="left">Deadline</TableCell>
+              <TableCell onClick={toggleSort} title="stt">User
+                {inforSort.path === 'stt' && inforSort.dir === 'asc' ? <KeyboardArrowDownIcon/> : undefined}
+                {inforSort.path === 'stt' && inforSort.dir === 'desc' ? <KeyboardArrowUpIcon/> : undefined}
+              </TableCell>
+              <TableCell align="left" onClick={toggleSort} title="firstName">First name
+                {inforSort.path === 'firstName' && inforSort.dir === 'asc' ? <KeyboardArrowDownIcon/> : undefined}
+                {inforSort.path === 'firstName' && inforSort.dir === 'desc' ? <KeyboardArrowUpIcon/> : undefined}
+              </TableCell>
+              <TableCell align="left" onClick={toggleSort} title="progress">Progress
+                {inforSort.path === 'progress' && inforSort.dir === 'asc' ? <KeyboardArrowDownIcon/> : undefined}
+                {inforSort.path === 'progress' && inforSort.dir === 'desc' ? <KeyboardArrowUpIcon/> : undefined}
+              </TableCell>
+              <TableCell align="left" onClick={toggleSort} title="amount">Amount
+                {inforSort.path === 'amount' && inforSort.dir === 'asc' ? <KeyboardArrowDownIcon/> : undefined}
+                {inforSort.path === 'amount' && inforSort.dir === 'desc' ? <KeyboardArrowUpIcon/> : undefined}
+              </TableCell>
+              <TableCell align="left" onClick={toggleSort} title="deadline">Deadline
+                {inforSort.path === 'deadline' && inforSort.dir === 'asc' ? <KeyboardArrowDownIcon/> : undefined}
+                {inforSort.path === 'deadline' && inforSort.dir === 'desc' ? <KeyboardArrowUpIcon/> : undefined}
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -110,19 +155,19 @@ function StripedTable() {
                   </div>
                 </TableCell>
                 <TableCell align="left">$ {Number(amount).toFixed(2)}</TableCell>
-                <TableCell align="left">{deadline}</TableCell>
+                <TableCell align="left">{convertISOToLongDate(deadline)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
       <Menu
-        open={state.mouseY !== null}
+        open={posMenu.mouseY !== null}
         onClose={handleCloseMenu}
         anchorReference="anchorPosition"
         anchorPosition={
-          state.mouseY !== null && state.mouseX !== null
-            ? { top: state.mouseY, left: state.mouseX }
+          posMenu.mouseY !== null && posMenu.mouseX !== null
+            ? { top: posMenu.mouseY, left: posMenu.mouseX }
             : undefined
         }
       >
